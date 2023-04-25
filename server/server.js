@@ -35,6 +35,7 @@ app.post("/api/employees/", async (req, res, next) => {
 });
 
 app.patch("/api/employees/:id", async (req, res, next) => {
+  console.log(req.body)
   try {
     const employee = await EmployeeModel.findOneAndUpdate(
       { _id: req.params.id },
@@ -56,6 +57,7 @@ app.delete("/api/employees/:id", async (req, res, next) => {
     return next(err);
   }
 });
+
 
 const main = async () => {
   await mongoose.connect(MONGO_URL);

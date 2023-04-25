@@ -1,17 +1,20 @@
+import { useState } from "react";
+
+//A form helyett stateket használva könnyebb az equipment objectet kezelni és elmenteni
 const EmployeeForm = ({ onSave, disabled, employee, onCancel }) => {
+  const [level, setLevel] = useState([])
+  const [position, setPosition] = useState ([])
+  const [name, setName] = useState([])
+  //
+  const [equipment, setEquipment] = useState({})
+
   const onSubmit = (e) => {
     e.preventDefault();
-    const formData = new FormData(e.target);
-    const entries = [...formData.entries()];
+    const employeeData = {level, position, name, equipment}
+    onSave(employeeData)
+  }
 
-    const employee = entries.reduce((acc, entry) => {
-      const [k, v] = entry;
-      acc[k] = v;
-      return acc;
-    }, {});
 
-    return onSave(employee);
-  };
 
   return (
     <form className="EmployeeForm" onSubmit={onSubmit}>
@@ -25,6 +28,7 @@ const EmployeeForm = ({ onSave, disabled, employee, onCancel }) => {
           defaultValue={employee ? employee.name : null}
           name="name"
           id="name"
+          onChange={e => setName(e.target.value)}
         />
       </div>
 
@@ -34,6 +38,7 @@ const EmployeeForm = ({ onSave, disabled, employee, onCancel }) => {
           defaultValue={employee ? employee.level : null}
           name="level"
           id="level"
+          onChange={e => setLevel(e.target.value)}
         />
       </div>
 
@@ -43,8 +48,27 @@ const EmployeeForm = ({ onSave, disabled, employee, onCancel }) => {
           defaultValue={employee ? employee.position : null}
           name="position"
           id="position"
+          onChange={e => setPosition(e.target.value)}
         />
       </div>
+
+      <div className="select-container">
+          <select>
+            {employee.map((option) => (
+              <option value={option.value}>{option.label}</option>
+            ))}
+          </select>
+        </div>
+
+     <div className ="control">
+     <label htmlFor="equipment">Equipment:</label>
+        <input
+          defaultValue={employee ? employee.equipment : null}
+          name="equipment"
+          id="equipment"
+          onChange={e => setEquipment(e.target.value)} 
+        /> 
+     </div>
 
       <div className="buttons">
         <button type="submit" disabled={disabled}>
