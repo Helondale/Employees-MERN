@@ -10,6 +10,7 @@ const EmployeeForm = ({ onSave, disabled, employee, onCancel }) => {
   const [equipmentType, setEquipmentType] = useState(employee && employee.equipment ? employee.equipment.type : "")
   const [equipmentAmount, setEquipmentAmount] = useState(employee && employee.equipment ? employee.equipment.amount : null)
   const [propertyEquipmentType, setPropertyEquipmentType] = useState([])
+  console.log(equipmentType)
 
 
 

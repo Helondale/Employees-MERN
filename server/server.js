@@ -29,6 +29,12 @@ app.get("/api/employees/:id", async (req, res) => {
   return res.json(employee);
 });
 
+app.get("/employees/:search", async (req, res) => {
+  const searchTerm = req.params.search.toLowerCase();
+  const employees = await EmployeeModel.find({ $text: { $search: searchTerm } });
+  return res.json(employees);
+});
+
 app.post("/api/employees/", async (req, res, next) => {
   const employee = req.body;
 
@@ -39,6 +45,7 @@ app.post("/api/employees/", async (req, res, next) => {
     return next(err);
   }
 });
+
 
 app.patch("/api/employees/:id", async (req, res, next) => {
   try {
@@ -63,6 +70,7 @@ app.get('/api/employees/64492a102a1ded7c6e5a879c', async (req, res) => {
       res.status(500).json({message: error.message})
   }
 });
+
 
 
 app.delete("/api/employees/:id", async (req, res, next) => {
