@@ -1,19 +1,42 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-//A form helyett stateket használva könnyebb az equipment objectet kezelni és elmenteni
+
 const EmployeeForm = ({ onSave, disabled, employee, onCancel }) => {
-  const [level, setLevel] = useState([])
-  const [position, setPosition] = useState ([])
-  const [name, setName] = useState([])
-  //
-  const [equipment, setEquipment] = useState({})
+  const [level, setLevel] = useState(employee ? employee.level : null)
+  const [position, setPosition] = useState(employee ? employee.position : null)
+  const [name, setName] = useState(employee ? employee.name : null)
+
+  const [equipmentName, setEquipmentName] = useState(employee && employee.equipment ? employee.equipment.name : "")
+  const [equipmentType, setEquipmentType] = useState(employee && employee.equipment ? employee.equipment.type : "")
+  const [equipmentAmount, setEquipmentAmount] = useState(employee && employee.equipment ? employee.equipment.amount : null)
+  const [propertyEquipmentType, setPropertyEquipmentType] = useState([])
+
+
+
 
   const onSubmit = (e) => {
     e.preventDefault();
-    const employeeData = {level, position, name, equipment}
+    const employeeData = { level, position, name, equipment: { name: equipmentName, type: equipmentType, amount: equipmentAmount }, _id: employee ? employee._id : undefined }
     onSave(employeeData)
   }
 
+  useEffect(() => {
+    fetch('http://localhost:8080/api/employees/64492a102a1ded7c6e5a879c', {
+      headers: { "Content-Type": "application/json" },
+    })
+      .then(response => {
+        if (response.ok) {
+          return response.json()
+        }
+        throw response;
+      })
+      .then(equipmentType => {
+        setPropertyEquipmentType(Object.values(equipmentType))
+      })
+      .catch(error => {
+        console.error(error)
+      })
+  }, [])
 
 
   return (
@@ -25,7 +48,7 @@ const EmployeeForm = ({ onSave, disabled, employee, onCancel }) => {
       <div className="control">
         <label htmlFor="name">Name:</label>
         <input
-          defaultValue={employee ? employee.name : null}
+          value={name}
           name="name"
           id="name"
           onChange={e => setName(e.target.value)}
@@ -35,7 +58,7 @@ const EmployeeForm = ({ onSave, disabled, employee, onCancel }) => {
       <div className="control">
         <label htmlFor="level">Level:</label>
         <input
-          defaultValue={employee ? employee.level : null}
+          value={level}
           name="level"
           id="level"
           onChange={e => setLevel(e.target.value)}
@@ -45,30 +68,53 @@ const EmployeeForm = ({ onSave, disabled, employee, onCancel }) => {
       <div className="control">
         <label htmlFor="position">Position:</label>
         <input
-          defaultValue={employee ? employee.position : null}
+          value={position}
           name="position"
           id="position"
           onChange={e => setPosition(e.target.value)}
         />
       </div>
 
-      <div className="select-container">
-          <select>
-            {employee.map((option) => (
-              <option value={option.value}>{option.label}</option>
-            ))}
-          </select>
-        </div>
 
-     <div className ="control">
-     <label htmlFor="equipment">Equipment:</label>
+      <div className="control">
+        <label htmlFor="equipment">Equipment Name:</label>
         <input
-          defaultValue={employee ? employee.equipment : null}
+          value={equipmentName}
           name="equipment"
           id="equipment"
-          onChange={e => setEquipment(e.target.value)} 
-        /> 
-     </div>
+          onChange={e => setEquipmentName(e.target.value)}
+        />
+        <label htmlFor="equipmentType">Equipment Type:</label>
+        <select
+          value={equipmentType}
+          onChange={e => setEquipmentType(e.target.value)}
+          name="equipmentType"
+          id="equipmentType"
+        >
+          {propertyEquipmentType.slice(0, -2).map((option, i) => (
+            <option key={i} value={option.value}>
+              {option}
+            </option>
+          ))}
+        </select>
+
+        <label htmlFor="equipment">Equipment Value:</label>
+        <input
+          value={equipmentAmount}
+          name="equipment"
+          id="equipment"
+          onChange={e => {
+            const value = e.target.value;
+            const parsedValue = parseInt(value);
+            if (!isNaN(parsedValue)) {
+              setEquipmentAmount(parsedValue);
+            } else {
+              setEquipmentAmount(value);
+            }
+          }}
+          type="number"
+        />
+      </div>
 
       <div className="buttons">
         <button type="submit" disabled={disabled}>

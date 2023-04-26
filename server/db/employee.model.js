@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const type = require()
 
 const { Schema } = mongoose;
 
@@ -7,10 +6,9 @@ const EmployeeSchema = new Schema({
   name: String,
   level: String,
   position: String,
-  //
   equipment: {
     name: String,
-    type: String,
+    type: {type: String},
     amount: Number
   },
   created: {

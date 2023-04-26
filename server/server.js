@@ -1,7 +1,9 @@
 require("dotenv").config();
 const express = require("express");
+const cors = require('cors')
 const mongoose = require("mongoose");
 const EmployeeModel = require("./db/employee.model");
+const TypeModel = require("./db/type.model");
 
 const { MONGO_URL, PORT = 8080 } = process.env;
 
@@ -12,6 +14,10 @@ if (!MONGO_URL) {
 
 const app = express();
 app.use(express.json());
+
+app.use(cors({
+  allowedHeaders: ['Content-Type']
+}))
 
 app.get("/api/employees/", async (req, res) => {
   const employees = await EmployeeModel.find().sort({ created: "desc" });
@@ -35,7 +41,6 @@ app.post("/api/employees/", async (req, res, next) => {
 });
 
 app.patch("/api/employees/:id", async (req, res, next) => {
-  console.log(req.body)
   try {
     const employee = await EmployeeModel.findOneAndUpdate(
       { _id: req.params.id },
@@ -47,6 +52,18 @@ app.patch("/api/employees/:id", async (req, res, next) => {
     return next(err);
   }
 });
+
+
+app.get('/api/employees/64492a102a1ded7c6e5a879c', async (req, res) => {
+  try{
+      const data = await TypeModel.findById(req.params.id);
+      res.json(data)
+  }
+  catch(error){
+      res.status(500).json({message: error.message})
+  }
+});
+
 
 app.delete("/api/employees/:id", async (req, res, next) => {
   try {
