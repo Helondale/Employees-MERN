@@ -2,10 +2,10 @@ const mongoose = require("mongoose");
 
 const { Schema } = mongoose;
 
-const TypeSchema = new Schema({
+const EquipmentSchema = new Schema({
 name: String,
 type: {type: String},
 amount: Number
 });
 
-module.exports = mongoose.model("Type", TypeSchema);
+module.exports = mongoose.model("Types", EquipmentSchema);

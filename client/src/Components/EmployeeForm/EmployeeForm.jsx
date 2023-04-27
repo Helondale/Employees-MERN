@@ -10,8 +10,6 @@ const EmployeeForm = ({ onSave, disabled, employee, onCancel }) => {
   const [equipmentType, setEquipmentType] = useState(employee && employee.equipment ? employee.equipment.type : "")
   const [equipmentAmount, setEquipmentAmount] = useState(employee && employee.equipment ? employee.equipment.amount : null)
   const [propertyEquipmentType, setPropertyEquipmentType] = useState([])
-  console.log(equipmentType)
-
 
 
 
@@ -22,7 +20,7 @@ const EmployeeForm = ({ onSave, disabled, employee, onCancel }) => {
   }
 
   useEffect(() => {
-    fetch('http://localhost:8080/api/employees/64492a102a1ded7c6e5a879c', {
+    fetch('http://localhost:8080/api/types/', {
       headers: { "Content-Type": "application/json" },
     })
       .then(response => {
@@ -32,7 +30,7 @@ const EmployeeForm = ({ onSave, disabled, employee, onCancel }) => {
         throw response;
       })
       .then(equipmentType => {
-        setPropertyEquipmentType(Object.values(equipmentType))
+        setPropertyEquipmentType(Object.values(equipmentType).map(type => type.type))
       })
       .catch(error => {
         console.error(error)
@@ -92,7 +90,7 @@ const EmployeeForm = ({ onSave, disabled, employee, onCancel }) => {
           name="equipmentType"
           id="equipmentType"
         >
-          {propertyEquipmentType.slice(0, -2).map((option, i) => (
+          {propertyEquipmentType.map((option, i) => (
             <option key={i} value={option.value}>
               {option}
             </option>

@@ -3,7 +3,7 @@ const express = require("express");
 const cors = require('cors')
 const mongoose = require("mongoose");
 const EmployeeModel = require("./db/employee.model");
-const TypeModel = require("./db/type.model");
+const EquipmentModel = require("./db/equipment.model");
 
 const { MONGO_URL, PORT = 8080 } = process.env;
 
@@ -61,14 +61,10 @@ app.patch("/api/employees/:id", async (req, res, next) => {
 });
 
 
-app.get('/api/employees/64492a102a1ded7c6e5a879c', async (req, res) => {
-  try{
-      const data = await TypeModel.findById(req.params.id);
+app.get('/api/types/', async (req, res) => {
+      const data = await EquipmentModel.find();
+      console.log(data)
       res.json(data)
-  }
-  catch(error){
-      res.status(500).json({message: error.message})
-  }
 });
 
 
