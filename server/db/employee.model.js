@@ -11,6 +11,7 @@ const EmployeeSchema = new Schema({
     type: {type: String},
     amount: Number
   },
+  notes: [String],
   created: {
     type: Date,
     default: Date.now,

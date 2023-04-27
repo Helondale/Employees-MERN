@@ -5,7 +5,6 @@ import EmployeeForm from "../Components/EmployeeForm";
 import Loading from "../Components/Loading";
 
 const updateEmployee = (employee) => {
-  console.log(employee)
   return fetch(`/api/employees/${employee._id}`, {
     method: "PATCH",
     headers: {

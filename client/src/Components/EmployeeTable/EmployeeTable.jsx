@@ -15,6 +15,7 @@ const EmployeeTable = ({ employees, onDelete }) => {
             <th>Level</th>
             <th>Position</th>
             <th>Equipment</th>
+            <th>Notes</th>
             <th />
           </tr>
         </thead>
@@ -27,6 +28,7 @@ const EmployeeTable = ({ employees, onDelete }) => {
               <td>{employee.equipment ? employee.equipment.name : null}</td>
               <td>{employee.equipment ? employee.equipment.type : null}</td>
               <td>{employee.equipment ? employee.equipment.amount : null}</td>
+              <td>{employee.notes}</td>
               <td>
                 <Link to={`/update/${employee._id}`}>
                   <button type="button">Update</button>
@@ -34,6 +36,9 @@ const EmployeeTable = ({ employees, onDelete }) => {
                 <button type="button" onClick={() => onDelete(employee._id)}>
                   Delete
                 </button>
+                <Link to={`/employee/notes/${employee._id}`}>
+                  <button type="button">Notes</button>
+                  </Link>
               </td>
             </tr>
           ))}

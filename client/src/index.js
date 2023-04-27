@@ -12,6 +12,7 @@ import EmployeeUpdater from "./Pages/EmployeeUpdater";
 import "./index.css";
 import TableTest from "./Pages/TableTest";
 import FormTest from "./Pages/FormTest";
+import NotesForm from "./Pages/Notes";
 
 const router = createBrowserRouter([
   {
@@ -39,6 +40,12 @@ const router = createBrowserRouter([
         path: "/form-test",
         element: <FormTest />,
       },
+      {
+        path: "/employee/notes/:id",
+        element: <NotesForm/>
+      }
+    
+
     ],
   },
 ]);
