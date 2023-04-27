@@ -97,7 +97,7 @@ const EmployeeForm = ({ onSave, disabled, employee, onCancel }) => {
           ))}
         </select>
 
-        <label htmlFor="equipment">Equipment Value:</label>
+        <label htmlFor="equipment">Equipment Amount:</label>
         <input
           value={equipmentAmount}
           name="equipment"
