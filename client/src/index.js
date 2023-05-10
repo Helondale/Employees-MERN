@@ -13,6 +13,7 @@ import "./index.css";
 import TableTest from "./Pages/TableTest";
 import FormTest from "./Pages/FormTest";
 import NotesForm from "./Pages/Notes";
+import PresentForm from "./Pages/Present";
 
 const router = createBrowserRouter([
   {
@@ -43,6 +44,10 @@ const router = createBrowserRouter([
       {
         path: "/employee/notes/:id",
         element: <NotesForm/>
+      },
+      {
+        path: "/employee/present/:id",
+        element: <PresentForm/>
       }
     
 

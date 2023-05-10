@@ -41,6 +41,48 @@ app.get("/employee/notes/:id", async (req, res) => {
 
 });
 
+app.post("/employee/notes/:id", async (req, res, next) => { 
+const notes = req.body.notes;
+
+try {
+  let employee = await EmployeeModel.findById(req.params.id);
+  employee.notes.push(notes)
+  await employee.save()
+  return res.json(employee.notes);
+} catch (err) {
+  return next(err);
+}
+ });
+
+ ////////
+app.get("/missing", async (req, res) => {
+const employee = await EmployeeModel.find({present: false})
+return res.json(employee)
+});
+
+app.get("/employee/present/:id", async (req, res) => {
+  const employee = await EmployeeModel.findById(req.params.id);
+  if (employee.present === undefined) {
+    employee.present = false;
+  }
+  return res.json(employee.present);
+});
+
+app.post("/employee/present/:id", async (req, res) => {
+  const present = req.body.present;
+
+  try {
+    let employee = await EmployeeModel.findById(req.params.id);
+    employee.present = present;
+    await employee.save()
+    return res.json(employee.present);
+  } catch (err) {
+    return err;
+  }
+   });
+
+////////   
+
 app.post("/api/employees/", async (req, res, next) => {
   const employee = req.body;
 
@@ -69,7 +111,6 @@ app.patch("/api/employees/:id", async (req, res, next) => {
 
 app.get('/api/types/', async (req, res) => {
       const data = await EquipmentModel.find();
-      console.log(data)
       res.json(data)
 });
 

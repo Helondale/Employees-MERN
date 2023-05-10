@@ -4,6 +4,10 @@ const { Schema } = mongoose;
 
 const EmployeeSchema = new Schema({
   name: String,
+  present: {
+    type: Boolean,
+    default: false,
+  },
   level: String,
   position: String,
   equipment: {
