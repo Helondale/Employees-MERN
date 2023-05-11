@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import Experience from "../../Pages/Experience";
 
 
 const EmployeeForm = ({ onSave, disabled, employee, onCancel }) => {
@@ -72,6 +73,27 @@ const EmployeeForm = ({ onSave, disabled, employee, onCancel }) => {
           id="position"
           onChange={e => setPosition(e.target.value)}
         />
+      </div>
+
+      <div>
+        <label htmlFor="experience">Experience:</label>
+        <Experience>
+          <input
+            name="experience"
+            id="experience"
+            onChange={e => {
+              const value = e.target.value;
+              const parsedValue = parseInt(value);
+              if (!isNaN(parsedValue)) {
+                employee.experience = parsedValue;
+              } else {
+                employee.experience = value;
+              }
+            }}
+            type="number"
+          />
+        </Experience>
+
       </div>
 
 

@@ -78,6 +78,26 @@ app.post("/employee/present/:id", async (req, res) => {
   }
    });
 
+app.get("/years-of-experience/:experience", async (req, res) => {
+  const experience = req.params.experience
+  const employee = await EmployeeModel.find({experience: experience});
+  return res.json(employee)
+}) 
+
+app.post("/years-of-experience/:experience", async (req, res) => {
+  const experience = req.body.experience;
+
+  try {
+    let employee = await EmployeeModel.findById(req.params.id);
+    employee.experience = experience;
+    await employee.save()
+    return res.json(employee.experience);
+  } catch (err) {
+    return err;
+  }
+   });
+
+
 ////////   
 
 app.post("/api/employees/", async (req, res, next) => {
