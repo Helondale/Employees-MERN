@@ -62,9 +62,6 @@ return res.json(employee)
 
 app.get("/employee/present/:id", async (req, res) => {
   const employee = await EmployeeModel.findById(req.params.id);
-  if (employee.present === undefined) {
-    employee.present = false;
-  }
   return res.json(employee.present);
 });
 

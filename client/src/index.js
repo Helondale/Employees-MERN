@@ -14,6 +14,7 @@ import TableTest from "./Pages/TableTest";
 import FormTest from "./Pages/FormTest";
 import NotesForm from "./Pages/Notes";
 import PresentForm from "./Pages/Present";
+import Missing from "./Pages/Missing";
 
 const router = createBrowserRouter([
   {
@@ -48,9 +49,12 @@ const router = createBrowserRouter([
       {
         path: "/employee/present/:id",
         element: <PresentForm/>
+      },
+      {
+        path: "/missing",
+        element: <Missing/>
       }
     
-
     ],
   },
 ]);

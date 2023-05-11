@@ -32,9 +32,9 @@ const EmployeeTable = ({ employees, onDelete }) => {
               <td>{employee.name}</td>
               <td>
                 <PresentForm
-                  employee={employee.present}
+                  present={employee.present}
+                  id={employee._id}
                 />
-
               </td>
               <td>{employee.level}</td>
               <td>{employee.position}</td>
