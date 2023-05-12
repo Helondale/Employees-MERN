@@ -1,11 +1,10 @@
 import { useState } from "react";
+import { useParams } from "react-router-dom";
 
 
-
-const Experience = ({ experience }) => {
+const Experience = () => {
     const [inputExperience, setInputExperience] = useState(null);
-
-
+    const { experience } = useParams();
 
     const handleExperience = () => {
         fetch(`http://localhost:8080/years-of-experience/${experience}`, {
@@ -19,7 +18,6 @@ const Experience = ({ experience }) => {
             });
 
     };
-
     return (
         <div>
             <input
@@ -30,6 +28,7 @@ const Experience = ({ experience }) => {
             >
             </input>
         </div>
+
     )
 }
 

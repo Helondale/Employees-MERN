@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import "./EmployeeTable.css";
 import "../EmployeeForm/EmployeeForm";
 import PresentForm from "../../Pages/Present";
+import Experience from "../../Pages/Experience";
 
 
 
@@ -16,6 +17,7 @@ const EmployeeTable = ({ employees, onDelete }) => {
             <th>Name</th>
             <th>Present</th>
             <th>Level</th>
+            <th>Years of experience</th>
             <th>Position</th>
             <th>Equipment</th>
             <th>
@@ -37,6 +39,7 @@ const EmployeeTable = ({ employees, onDelete }) => {
                 />
               </td>
               <td>{employee.level}</td>
+              <td>{employee.experience}</td>
               <td>{employee.position}</td>
               <td>{employee.equipment ? employee.equipment.name : null}</td>
               <td>{employee.equipment ? employee.equipment.type : null}</td>
