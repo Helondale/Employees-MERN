@@ -1,4 +1,6 @@
 import { useState, useEffect } from "react";
+import Experience from "../../Pages/Experience";
+
 
 const EmployeeForm = ({ onSave, disabled, employee, onCancel }) => {
   const [level, setLevel] = useState(employee ? employee.level : null)
@@ -74,27 +76,6 @@ const EmployeeForm = ({ onSave, disabled, employee, onCancel }) => {
         />
       </div>
 
-      <div>
-        <label htmlFor="experience">Experience:</label>
-        <input
-          value={experience}
-          name="experience"
-          id="experience"
-          onChange={e => {
-            const value = e.target.value;
-            const parsedValue = parseInt(value);
-            if (!isNaN(parsedValue)) {
-              setExperience(parsedValue);
-            } else {
-              setExperience(value);
-            }
-            if(employee.level==="Junior"){
-              setExperience(0);
-            }
-          }}
-          type="number"
-        />
-      </div>
       <div className="control">
         <label htmlFor="equipment">Equipment Name:</label>
         <input
