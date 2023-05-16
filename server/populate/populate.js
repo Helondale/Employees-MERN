@@ -23,8 +23,6 @@ const populateEmployees = async () => {
   const employees = names.map((name) => ({
     name,
     level: pick(levels),
-    position: pick(positions),
-    //
     equipment
   }));
 
