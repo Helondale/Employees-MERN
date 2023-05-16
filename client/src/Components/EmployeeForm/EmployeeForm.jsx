@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import Experience from "../../Pages/Experience";
+
 
 
 const EmployeeForm = ({ onSave, disabled, employee, onCancel }) => {
@@ -10,14 +10,14 @@ const EmployeeForm = ({ onSave, disabled, employee, onCancel }) => {
   const [equipmentName, setEquipmentName] = useState(employee && employee.equipment ? employee.equipment.name : "")
   const [equipmentType, setEquipmentType] = useState(employee && employee.equipment ? employee.equipment.type : "")
   const [equipmentAmount, setEquipmentAmount] = useState(employee && employee.equipment ? employee.equipment.amount : null)
-  const [experience, setExperience] = useState(employee && employee.experience ? employee.experience : null)
+  const [experience, setExperience] = useState(null)
   const [propertyEquipmentType, setPropertyEquipmentType] = useState([])
 
 
 
   const onSubmit = (e) => {
     e.preventDefault();
-    const employeeData = { level, position, name, equipment: { name: equipmentName, type: equipmentType, amount: equipmentAmount, experience: experience }, _id: employee ? employee._id : undefined }
+    const employeeData = { level, experience, position, name, equipment: { name: equipmentName, type: equipmentType, amount: equipmentAmount}, _id: employee ? employee._id : undefined }
     onSave(employeeData)
   }
 
@@ -39,6 +39,14 @@ const EmployeeForm = ({ onSave, disabled, employee, onCancel }) => {
       })
   }, [])
 
+  const JuniorExperience = (value) => {
+    if (experience === 0) {
+      setLevel("Junior")
+      
+    }
+    setExperience(value)
+  }
+
 
   return (
     <form className="EmployeeForm" onSubmit={onSubmit}>
@@ -56,13 +64,26 @@ const EmployeeForm = ({ onSave, disabled, employee, onCancel }) => {
         />
       </div>
 
+      {experience > 1 ?
+        <div className="control">
+          <label htmlFor="level">Level:</label>
+          <input
+            value={level}
+            name="level"
+            id="level"
+            onChange={e => setLevel(e.target.value)}
+          />
+        </div>
+        : null
+      }
+
       <div className="control">
-        <label htmlFor="level">Level:</label>
+        <label htmlFor="experience">Experience:</label>
         <input
-          value={level}
-          name="level"
-          id="level"
-          onChange={e => setLevel(e.target.value)}
+          value={experience}
+          name="experience"
+          id="experience"
+          onChange={e => JuniorExperience(e.target.value)}
         />
       </div>
 

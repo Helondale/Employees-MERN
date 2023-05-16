@@ -54,7 +54,6 @@ try {
 }
  });
 
- ////////
 app.get("/missing", async (req, res) => {
 const employee = await EmployeeModel.find({present: false})
 return res.json(employee)
@@ -79,22 +78,15 @@ app.put("/employee/present/:id", async (req, res) => {
    });
 
 app.get("/years-of-experience/:experience", async (req, res) => {
+ try{
   const experience = req.params.experience
   const employee = await EmployeeModel.find({experience: experience});
   return res.json(employee)
+}
+catch (err) {
+  return err;
+}
 }) 
-
-app.post("/years-of-experience/:experience", async (req, res) => {
-  const experience = req.body.experience;
-
-  try {
-    let employee = await EmployeeModel.create({ experience: req.params.experience });
-    await employee.save();
-    return res.json(employee.experience);
-  } catch (err) {
-    return err;
-  }
-});
 
 app.post("/api/employees/", async (req, res, next) => {
   const employee = req.body;
@@ -106,7 +98,6 @@ app.post("/api/employees/", async (req, res, next) => {
     return next(err);
   }
 });
-
 
 app.patch("/api/employees/:id", async (req, res, next) => {
   try {
@@ -120,7 +111,6 @@ app.patch("/api/employees/:id", async (req, res, next) => {
     return next(err);
   }
 });
-
 
 app.get('/api/types/', async (req, res) => {
       const data = await EquipmentModel.find();
