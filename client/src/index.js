@@ -59,8 +59,6 @@ const router = createBrowserRouter([
         path:"/years-of-experience/:experience",
         element: <Experience/>
       }
-
-    
     ],
   },
 ]);

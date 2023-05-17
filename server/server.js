@@ -4,6 +4,7 @@ const cors = require('cors')
 const mongoose = require("mongoose");
 const EmployeeModel = require("./db/employee.model");
 const EquipmentModel = require("./db/equipment.model");
+const BrandModel = require("./db/brands.model")
 
 const { MONGO_URL, PORT = 8080 } = process.env;
 
@@ -41,22 +42,32 @@ app.get("/employee/notes/:id", async (req, res) => {
 
 });
 
-app.post("/employee/notes/:id", async (req, res, next) => { 
-const notes = req.body.notes;
+app.post("/employee/notes/:id", async (req, res, next) => {
+  const notes = req.body.notes;
 
-try {
-  let employee = await EmployeeModel.findById(req.params.id);
-  employee.notes.push(notes)
-  await employee.save()
-  return res.json(employee.notes);
-} catch (err) {
-  return next(err);
-}
- });
+  try {
+    let employee = await EmployeeModel.findById(req.params.id);
+    employee.notes.push(notes)
+    await employee.save()
+    return res.json(employee.notes);
+  } catch (err) {
+    return next(err);
+  }
+});
 
-app.get("/missing", async (req, res) => {
-const employee = await EmployeeModel.find({present: false})
-return res.json(employee)
+app.get('/api/types/', async (req, res) => {
+  const data = await EquipmentModel.find();
+  res.json(data)
+});
+
+app.get('/api/brands/', async (req, res) => {
+  try {
+    const data = await BrandModel.find();
+    res.json(data)
+  } catch (err) {
+    return err
+
+  }
 });
 
 app.get("/employee/present/:id", async (req, res) => {
@@ -75,18 +86,23 @@ app.put("/employee/present/:id", async (req, res) => {
   } catch (err) {
     return err;
   }
-   });
+});
+
+app.get("/missing", async (req, res) => {
+  const employee = await EmployeeModel.find({ present: false })
+  return res.json(employee)
+});
 
 app.get("/years-of-experience/:experience", async (req, res) => {
- try{
-  const experience = req.params.experience
-  const employee = await EmployeeModel.find({experience: experience});
-  return res.json(employee)
-}
-catch (err) {
-  return err;
-}
-}) 
+  try {
+    const experience = req.params.experience
+    const employee = await EmployeeModel.find({ experience: experience });
+    return res.json(employee)
+  }
+  catch (err) {
+    return err;
+  }
+})
 
 app.post("/api/employees/", async (req, res, next) => {
   const employee = req.body;
@@ -112,13 +128,6 @@ app.patch("/api/employees/:id", async (req, res, next) => {
   }
 });
 
-app.get('/api/types/', async (req, res) => {
-      const data = await EquipmentModel.find();
-      res.json(data)
-});
-
-
-
 app.delete("/api/employees/:id", async (req, res, next) => {
   try {
     const employee = await EmployeeModel.findById(req.params.id);
@@ -128,7 +137,6 @@ app.delete("/api/employees/:id", async (req, res, next) => {
     return next(err);
   }
 });
-
 
 const main = async () => {
   await mongoose.connect(MONGO_URL);

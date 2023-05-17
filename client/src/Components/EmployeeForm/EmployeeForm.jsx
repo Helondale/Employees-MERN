@@ -6,18 +6,18 @@ const EmployeeForm = ({ onSave, disabled, employee, onCancel }) => {
   const [level, setLevel] = useState(employee ? employee.level : null)
   const [position, setPosition] = useState(employee ? employee.position : null)
   const [name, setName] = useState(employee ? employee.name : null)
-
+  const [brand, setBrand] = useState(employee ? employee.brand : "")
   const [equipmentName, setEquipmentName] = useState(employee && employee.equipment ? employee.equipment.name : "")
   const [equipmentType, setEquipmentType] = useState(employee && employee.equipment ? employee.equipment.type : "")
   const [equipmentAmount, setEquipmentAmount] = useState(employee && employee.equipment ? employee.equipment.amount : null)
   const [experience, setExperience] = useState(null)
   const [propertyEquipmentType, setPropertyEquipmentType] = useState([])
-
+const [propertyBrand, setPropertyBrand] = useState([])
 
 
   const onSubmit = (e) => {
     e.preventDefault();
-    const employeeData = { level, experience, position, name, equipment: { name: equipmentName, type: equipmentType, amount: equipmentAmount}, _id: employee ? employee._id : undefined }
+    const employeeData = { level, brand, experience, position, name, equipment: { name: equipmentName, type: equipmentType, amount: equipmentAmount }, _id: employee ? employee._id : undefined }
     onSave(employeeData)
   }
 
@@ -39,14 +39,32 @@ const EmployeeForm = ({ onSave, disabled, employee, onCancel }) => {
       })
   }, [])
 
+  useEffect(() => {
+    fetch('http://localhost:8080/api/brands/', {
+      headers: { "Content-Type": "application/json" },
+    })
+      .then(response => {
+        if (response.ok) {
+          return response.json()
+        }
+        throw response;
+      })
+      .then(employeeBrand => {
+        setPropertyBrand(Object.values(employeeBrand).map(brand=>brand.name))
+
+      })
+      .catch(error => {
+        console.error(error)
+      })
+  }, [brand])
+
   const JuniorExperience = (value) => {
     if (experience === 0) {
       setLevel("Junior")
-      
+
     }
     setExperience(value)
   }
-
 
   return (
     <form className="EmployeeForm" onSubmit={onSubmit}>
@@ -77,6 +95,20 @@ const EmployeeForm = ({ onSave, disabled, employee, onCancel }) => {
         : null
       }
 
+      <label htmlFor="equipmentType">Favorite Brand:</label>
+      <select
+        value={brand}
+        onChange={e => setBrand(e.target.value)}
+        name="brand"
+        id="brand"
+      >
+        {propertyBrand.map((option, i) => (
+          <option key={i} value={option.value}>
+            {option}
+          </option>
+        ))}
+      </select>
+
       <div className="control">
         <label htmlFor="experience">Experience:</label>
         <input
@@ -105,6 +137,7 @@ const EmployeeForm = ({ onSave, disabled, employee, onCancel }) => {
           id="equipment"
           onChange={e => setEquipmentName(e.target.value)}
         />
+
         <label htmlFor="equipmentType">Equipment Type:</label>
         <select
           value={equipmentType}
