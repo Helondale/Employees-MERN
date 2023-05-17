@@ -25,7 +25,6 @@ const PresentForm = ({present, id}) => {
         <input
           type="checkbox"
           checked={isChecked}
-          defaultChecked={false}
           name="present"
           id="present"
           onChange={(e) => handlePresent(e.target.checked)}

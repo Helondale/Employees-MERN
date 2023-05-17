@@ -75,7 +75,7 @@ app.get("/employee/present/:id", async (req, res) => {
   return res.json(employee.present);
 });
 
-app.put("/employee/present/:id", async (req, res) => {
+app.post("/employee/present/:id", async (req, res) => {
   const present = req.body.present;
 
   try {
