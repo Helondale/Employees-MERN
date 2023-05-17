@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
 const Missing = () => {
-    const [missing, setMissing] = useState([])
+    const [missing, setMissing] = useState([]);
 
     useEffect(() => {
         fetch('http://localhost:8080/missing', {
@@ -19,19 +19,19 @@ const Missing = () => {
             .catch(error => {
                 console.error(error)
             })
-    }, [missing])
-
+    }, [missing]);
 
     return (
         <div className="control">
-            <label>Missing:</label>
+            <h1>Missing:</h1>
             {missing.map((employee, index) => {
-                return <p key={index}>{employee.name}</p>
+                return <div>
+                    <p key={index}><h3>Name:</h3>{employee.name} <h3>Position:</h3>{employee.position}</p>
+                    <hr />
+                </div>
             })}
-
         </div>
-
     )
-}
+};
 
 export default Missing;

@@ -1,25 +1,22 @@
 import { useState, useEffect } from "react";
 
-
-
 const EmployeeForm = ({ onSave, disabled, employee, onCancel }) => {
-  const [level, setLevel] = useState(employee ? employee.level : null)
-  const [position, setPosition] = useState(employee ? employee.position : null)
-  const [name, setName] = useState(employee ? employee.name : null)
-  const [brand, setBrand] = useState(employee ? employee.brand : "")
-  const [equipmentName, setEquipmentName] = useState(employee && employee.equipment ? employee.equipment.name : "")
-  const [equipmentType, setEquipmentType] = useState(employee && employee.equipment ? employee.equipment.type : "")
-  const [equipmentAmount, setEquipmentAmount] = useState(employee && employee.equipment ? employee.equipment.amount : null)
-  const [experience, setExperience] = useState(null)
-  const [propertyEquipmentType, setPropertyEquipmentType] = useState([])
-  const [propertyBrand, setPropertyBrand] = useState([])
-
+  const [level, setLevel] = useState(employee ? employee.level : null);
+  const [position, setPosition] = useState(employee ? employee.position : null);
+  const [name, setName] = useState(employee ? employee.name : null);
+  const [brand, setBrand] = useState(employee ? employee.brand : "");
+  const [equipmentName, setEquipmentName] = useState(employee && employee.equipment ? employee.equipment.name : "");
+  const [equipmentType, setEquipmentType] = useState(employee && employee.equipment ? employee.equipment.type : "");
+  const [equipmentAmount, setEquipmentAmount] = useState(employee && employee.equipment ? employee.equipment.amount : null);
+  const [experience, setExperience] = useState(null);
+  const [propertyEquipmentType, setPropertyEquipmentType] = useState([]);
+  const [propertyBrand, setPropertyBrand] = useState([]);
 
   const onSubmit = (e) => {
     e.preventDefault();
     const employeeData = { level, brand, experience, position, name, equipment: { name: equipmentName, type: equipmentType, amount: equipmentAmount }, _id: employee ? employee._id : undefined }
     onSave(employeeData)
-  }
+  };
 
   useEffect(() => {
     fetch('http://localhost:8080/api/types/', {
@@ -37,7 +34,7 @@ const EmployeeForm = ({ onSave, disabled, employee, onCancel }) => {
       .catch(error => {
         console.error(error)
       })
-  }, [])
+  }, []);
 
   useEffect(() => {
     fetch('http://localhost:8080/api/brands/', {
@@ -51,7 +48,6 @@ const EmployeeForm = ({ onSave, disabled, employee, onCancel }) => {
       })
       .then(employeeBrand => {
         setPropertyBrand(Object.values(employeeBrand).map(brand => brand.name))
-
       })
       .catch(error => {
         console.error(error)
@@ -64,7 +60,7 @@ const EmployeeForm = ({ onSave, disabled, employee, onCancel }) => {
 
     }
     setExperience(value)
-  }
+  };
 
   return (
     <form className="EmployeeForm" onSubmit={onSubmit}>
@@ -94,8 +90,6 @@ const EmployeeForm = ({ onSave, disabled, employee, onCancel }) => {
         </div>
         : null
       }
-
-
 
       <div className="control">
         <label htmlFor="experience">Experience:</label>
@@ -156,6 +150,7 @@ const EmployeeForm = ({ onSave, disabled, employee, onCancel }) => {
           }}
           type="number"
         />
+        
         <label htmlFor="equipmentType">Favorite Brand:</label>
         <select
           value={brand}

@@ -3,10 +3,7 @@ import "./EmployeeTable.css";
 import "../EmployeeForm/EmployeeForm";
 import PresentForm from "../../Pages/Present";
 
-
-
 const EmployeeTable = ({ employees, onDelete }) => {
-
   return (
     <div className="EmployeeTable">
       <table>

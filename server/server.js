@@ -21,30 +21,44 @@ app.use(cors({
 }))
 
 app.get("/api/employees/", async (req, res) => {
-  const employees = await EmployeeModel.find().sort({ created: "desc" });
-  return res.json(employees);
+  try {
+    const employees = await EmployeeModel.find().sort({ created: "desc" });
+    return res.json(employees);
+  } catch (err) {
+    return err
+  }
 });
 
 app.get("/api/employees/:id", async (req, res) => {
-  const employee = await EmployeeModel.findById(req.params.id);
-  return res.json(employee);
+  try {
+    const employee = await EmployeeModel.findById(req.params.id);
+    return res.json(employee);
+  } catch (err) {
+    return err
+  }
 });
 
 app.get("/employees/:search", async (req, res) => {
-  const searchTerm = req.params.search.toLowerCase();
-  const employees = await EmployeeModel.find({ $text: { $search: searchTerm } });
-  return res.json(employees);
+  try {
+    const searchTerm = req.params.search.toLowerCase();
+    const employees = await EmployeeModel.find({ $text: { $search: searchTerm } });
+    return res.json(employees);
+  } catch (err) {
+    return err
+  }
 });
 
 app.get("/employee/notes/:id", async (req, res) => {
+  try{
   const employee = await EmployeeModel.findById(req.params.id);
   return res.json(employee.notes)
-
+  }catch(err){
+    return err
+  }
 });
 
 app.post("/employee/notes/:id", async (req, res, next) => {
   const notes = req.body.notes;
-
   try {
     let employee = await EmployeeModel.findById(req.params.id);
     employee.notes.push(notes)
@@ -56,8 +70,12 @@ app.post("/employee/notes/:id", async (req, res, next) => {
 });
 
 app.get('/api/types/', async (req, res) => {
-  const data = await EquipmentModel.find();
-  res.json(data)
+  try {
+    const data = await EquipmentModel.find();
+    res.json(data)
+  } catch (err) {
+    return err
+  }
 });
 
 app.get('/api/brands/', async (req, res) => {
@@ -66,13 +84,16 @@ app.get('/api/brands/', async (req, res) => {
     res.json(data)
   } catch (err) {
     return err
-
   }
 });
 
 app.get("/employee/present/:id", async (req, res) => {
-  const employee = await EmployeeModel.findById(req.params.id);
-  return res.json(employee.present);
+  try {
+    const employee = await EmployeeModel.findById(req.params.id);
+    return res.json(employee.present);
+  } catch (err) {
+    return err
+  }
 });
 
 app.post("/employee/present/:id", async (req, res) => {
@@ -89,8 +110,12 @@ app.post("/employee/present/:id", async (req, res) => {
 });
 
 app.get("/missing", async (req, res) => {
-  const employee = await EmployeeModel.find({ present: false })
-  return res.json(employee)
+  try {
+    const employee = await EmployeeModel.find({ present: false })
+    return res.json(employee)
+  } catch (err) {
+    return err
+  }
 });
 
 app.get("/years-of-experience/:experience", async (req, res) => {

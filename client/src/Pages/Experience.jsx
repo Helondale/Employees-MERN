@@ -2,9 +2,9 @@ import { useEffect, useState } from "react"
 import { useParams, useNavigate } from "react-router-dom"
 
 const Experience = () => {
-    const { experience } = useParams()
-    const [fetchedData, setFetchedData] = useState([])
-    const navigate = useNavigate()
+    const { experience } = useParams();
+    const [fetchedData, setFetchedData] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
         try {
@@ -36,8 +36,7 @@ const Experience = () => {
         catch {
             navigate("/")
         }
-
-    }, [experience, navigate])
+    }, [experience, navigate]);
 
     return (
         <div className="control">
@@ -49,7 +48,7 @@ const Experience = () => {
                             <p>Name: {employee.name}</p>
                             <p>Level: {employee.level}</p>
                             <p>Position: {employee.position}</p>
-                            <hr/>
+                            <hr />
                         </div>
                     ))
                 }

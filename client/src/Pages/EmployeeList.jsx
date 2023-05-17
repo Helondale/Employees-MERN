@@ -6,8 +6,6 @@ const fetchEmployees = () => {
   return fetch("/api/employees").then((res) => res.json());
 };
 
-
-
 const EmployeeList = () => {
   const [loading, setLoading] = useState(true);
   const [employees, setEmployees] = useState(null);
@@ -28,7 +26,7 @@ const EmployeeList = () => {
 
   const handleSearch = () => {
     setFilteredEmployees(employees.filter(employee => employee.position.toLowerCase().includes(positionFilter.toLowerCase()) && employee.level.toLowerCase().includes(levelFilter.toLowerCase())))
-  }
+  };
 
   const handleSortByFirstName = () => {
     setFilteredEmployees([...filteredEmployees.sort((a, b) => {

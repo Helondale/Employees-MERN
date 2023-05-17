@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 const NotesForm = () => {
-    const [notes, setNotes] = useState([])
-    const [inputNote, setInputNote] = useState("")
+    const [notes, setNotes] = useState([]);
+    const [inputNote, setInputNote] = useState("");
     const { id } = useParams();
 
     useEffect(() => {
@@ -22,7 +22,7 @@ const NotesForm = () => {
             .catch(error => {
                 console.error(error)
             })
-    }, [id])
+    }, [id]);
 
     const handleAddNote = () => {
     fetch(`http://localhost:8080/employee/notes/${id}`, {
@@ -37,7 +37,7 @@ const NotesForm = () => {
         })
 
     })
-    }
+    };
 
     return (
         <div className="control">
@@ -52,10 +52,8 @@ const NotesForm = () => {
                 onChange={e => setInputNote(e.target.value)}
             />  
             <button onClick={handleAddNote}>Set notes</button>
-
         </div>
     )
-}
-
+};
 
 export default NotesForm;

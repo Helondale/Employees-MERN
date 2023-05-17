@@ -1,10 +1,7 @@
 import { useState } from "react";
 
-
 const PresentForm = ({present, id}) => {
   const [isChecked, setIsChecked] = useState(present);
-
-  
 
   const handlePresent = (isChecked) => {
     fetch(`http://localhost:8080/employee/present/${id}`, {
@@ -16,7 +13,6 @@ const PresentForm = ({present, id}) => {
       .then((employeePresent) => {
         setIsChecked(employeePresent);
       });
-
   };
 
   return (
