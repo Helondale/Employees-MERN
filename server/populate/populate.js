@@ -9,7 +9,7 @@ const positions = require("./positions.json");
 const brands = require("./brands.json");
 const EmployeeModel = require("../db/employee.model");
 
-const mongoUrl = process.env.MONGO_URL;
+const mongoUrl = "mongodb+srv://Helondale:991208Ha@niwin.x6xdhy1.mongodb.net/test";
 
 if (!mongoUrl) {
   console.error("Missing MONGO_URL environment variable");

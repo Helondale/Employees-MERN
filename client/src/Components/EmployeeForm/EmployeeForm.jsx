@@ -12,7 +12,7 @@ const EmployeeForm = ({ onSave, disabled, employee, onCancel }) => {
   const [equipmentAmount, setEquipmentAmount] = useState(employee && employee.equipment ? employee.equipment.amount : null)
   const [experience, setExperience] = useState(null)
   const [propertyEquipmentType, setPropertyEquipmentType] = useState([])
-const [propertyBrand, setPropertyBrand] = useState([])
+  const [propertyBrand, setPropertyBrand] = useState([])
 
 
   const onSubmit = (e) => {
@@ -50,7 +50,7 @@ const [propertyBrand, setPropertyBrand] = useState([])
         throw response;
       })
       .then(employeeBrand => {
-        setPropertyBrand(Object.values(employeeBrand).map(brand=>brand.name))
+        setPropertyBrand(Object.values(employeeBrand).map(brand => brand.name))
 
       })
       .catch(error => {
@@ -95,19 +95,7 @@ const [propertyBrand, setPropertyBrand] = useState([])
         : null
       }
 
-      <label htmlFor="equipmentType">Favorite Brand:</label>
-      <select
-        value={brand}
-        onChange={e => setBrand(e.target.value)}
-        name="brand"
-        id="brand"
-      >
-        {propertyBrand.map((option, i) => (
-          <option key={i} value={option.value}>
-            {option}
-          </option>
-        ))}
-      </select>
+
 
       <div className="control">
         <label htmlFor="experience">Experience:</label>
@@ -168,6 +156,19 @@ const [propertyBrand, setPropertyBrand] = useState([])
           }}
           type="number"
         />
+        <label htmlFor="equipmentType">Favorite Brand:</label>
+        <select
+          value={brand}
+          onChange={e => setBrand(e.target.value)}
+          name="brand"
+          id="brand"
+        >
+          {propertyBrand.map((option, i) => (
+            <option key={i} value={option.value}>
+              {option}
+            </option>
+          ))}
+        </select>
       </div>
 
       <div className="buttons">

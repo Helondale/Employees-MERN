@@ -15,15 +15,15 @@ const EmployeeTable = ({ employees, onDelete }) => {
             <th>Name</th>
             <th>Present</th>
             <th>Level</th>
-            <th>Favorite brand</th>
             <th>Years of experience</th>
             <th>Position</th>
-            <th>Equipment</th>
-            <th>
-              <Link to="/missing">
-                <button type="button">Missing</button>
-              </Link>
-            </th>
+            <th>Equipment name</th>
+            <th>Equipment type</th>
+            <th>Equipment amount</th>
+            <th>Favorite brand</th>
+            <Link to="/missing">
+              <button type="button">Missing</button>
+            </Link>
             <th />
           </tr>
         </thead>
@@ -38,12 +38,12 @@ const EmployeeTable = ({ employees, onDelete }) => {
                 />
               </td>
               <td>{employee.level}</td>
-              <td>{employee.brand}</td>
               <td>{employee.experience ? employee.experience : null}</td>
               <td>{employee.position}</td>
               <td>{employee.equipment ? employee.equipment.name : null}</td>
               <td>{employee.equipment ? employee.equipment.type : null}</td>
               <td>{employee.equipment ? employee.equipment.amount : null}</td>
+              <td>{employee.brand}</td>
               <td>
                 <Link to={`/update/${employee._id}`}>
                   <button type="button">Update</button>
