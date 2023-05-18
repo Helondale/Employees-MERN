@@ -16,6 +16,7 @@ import NotesForm from "./Pages/Notes";
 import PresentForm from "./Pages/Present";
 import Missing from "./Pages/Missing";
 import Experience from "./Pages/Experience.jsx"
+import Working from "./Pages/Working.jsx"
 
 const router = createBrowserRouter([
   {
@@ -58,6 +59,10 @@ const router = createBrowserRouter([
       {
         path:"/years-of-experience/:experience",
         element: <Experience/>
+      },
+      {
+        path: "/employee/working/:id",
+        element: <Working/>
       }
     ],
   },

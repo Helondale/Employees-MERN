@@ -11,6 +11,10 @@ const EmployeeSchema = new Schema({
   experience: Number,
   level: String,
   position: String,
+  working: [{
+    hours: Number,
+    mode: String
+  }],
   equipment: {
     name: String,
     type: {type: String},
