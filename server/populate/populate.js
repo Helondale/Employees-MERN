@@ -25,8 +25,7 @@ const populateEmployees = async () => {
     name,
     level: pick(levels),
     position: pick(positions),
-    brand: pick(brands),
-    working: []
+    brand: pick(brands)
   }));
 
   await EmployeeModel.create(...employees);
