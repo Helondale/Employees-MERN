@@ -35,7 +35,6 @@ const NotesForm = () => {
         .then(employeeNote => {
             setNotes(employeeNote)
         })
-
     })
     };
 

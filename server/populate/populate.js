@@ -1,6 +1,3 @@
-/*
-Loading the .env file and creates environment variables from it
-*/
 require("dotenv").config();
 const mongoose = require("mongoose");
 const names = require("./names.json");
@@ -13,7 +10,7 @@ const mongoUrl = "mongodb+srv://Helondale:991208Ha@niwin.x6xdhy1.mongodb.net/tes
 
 if (!mongoUrl) {
   console.error("Missing MONGO_URL environment variable");
-  process.exit(1); // exit the current program
+  process.exit(1); 
 }
 
 const pick = (from) => from[Math.floor(Math.random() * (from.length - 0))];
