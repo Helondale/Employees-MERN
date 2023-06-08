@@ -49,10 +49,10 @@ app.get("/employees/:search", async (req, res) => {
 });
 
 app.get("/employee/notes/:id", async (req, res) => {
-  try{
-  const employee = await EmployeeModel.findById(req.params.id);
-  return res.json(employee.notes)
-  }catch(err){
+  try {
+    const employee = await EmployeeModel.findById(req.params.id);
+    return res.json(employee.notes)
+  } catch (err) {
     return err
   }
 });
@@ -68,6 +68,27 @@ app.post("/employee/notes/:id", async (req, res, next) => {
     return next(err);
   }
 });
+
+app.get("/employee/working/:id", async (req, res) => {
+  try {
+    let employee = await EmployeeModel.findById(req.params.id);
+    return res.json(employee.working)
+  } catch (err) {
+    return err
+  }
+});
+
+/*app.post("/employee/working/:id", async (req, res) => {
+  const working = req.body.working;
+  try {
+    let employee = await EmployeeModel.findById(req.params.id);
+    employee.working.push(working)
+    await employee.save()
+    return res.json(employee.working);
+  } catch (err) {
+    return next(err)
+  }
+})*/
 
 app.get('/api/types/', async (req, res) => {
   try {
@@ -127,7 +148,7 @@ app.get("/years-of-experience/:experience", async (req, res) => {
   catch (err) {
     return err;
   }
-})
+});
 
 app.post("/api/employees/", async (req, res, next) => {
   const employee = req.body;

@@ -8,9 +8,11 @@ const EmployeeForm = ({ onSave, disabled, employee, onCancel }) => {
   const [equipmentName, setEquipmentName] = useState(employee && employee.equipment ? employee.equipment.name : "");
   const [equipmentType, setEquipmentType] = useState(employee && employee.equipment ? employee.equipment.type : "");
   const [equipmentAmount, setEquipmentAmount] = useState(employee && employee.equipment ? employee.equipment.amount : null);
-  const [experience, setExperience] = useState(null);
   const [propertyEquipmentType, setPropertyEquipmentType] = useState([]);
   const [propertyBrand, setPropertyBrand] = useState([]);
+  const [experience, setExperience] = useState(null);
+  const [workingMode, setWorkingMode] = useState("");
+  const [workingHour, setWorkingHour] = useState(null);
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -112,6 +114,33 @@ const EmployeeForm = ({ onSave, disabled, employee, onCancel }) => {
       </div>
 
       <div className="control">
+        <label htmlFor="working">Working Mode:</label>
+        <input
+          value={workingMode}
+          name="working"
+          id="working"
+          onChange={e => setWorkingMode(e.target.value)}
+        />
+      
+      <label htmlFor="equipment">Working Hours:</label>
+        <input
+          value={workingHour}
+          name="working"
+          id="working"
+          onChange={e => {
+            const value = e.target.value;
+            const parsedValue = parseInt(value);
+            if (!isNaN(parsedValue)) {
+              setWorkingHour(parsedValue);
+            } else {
+              setWorkingHour(value);
+            }
+          }}
+          type="number"
+        />
+         </div>
+
+      <div className="control">
         <label htmlFor="equipment">Equipment Name:</label>
         <input
           value={equipmentName}
@@ -150,7 +179,7 @@ const EmployeeForm = ({ onSave, disabled, employee, onCancel }) => {
           }}
           type="number"
         />
-        
+
         <label htmlFor="equipmentType">Favorite Brand:</label>
         <select
           value={brand}
